@@ -1,6 +1,6 @@
 function init() {
     // Fill list
-    let list = fillList(20);
+    let list = fillList(32);
     // List is randomized after this
     list = shuffleList(list);
     render(list)
@@ -33,11 +33,11 @@ function shuffleList(list) {
 
 function startBubbleSort() {
     // Fill list
-    let list = fillList(20);
+    let list = fillList(32);
     // List is randomized after this
     list = shuffleList(list);
     render(list)
-    
+
     const steps = bubbleSort(list, list.length);
     
     var i = 0;
@@ -46,7 +46,7 @@ function startBubbleSort() {
         render(l);
         i++;
         if (i === steps.length) clearInterval(interval);
-    }, 1000);
+    }, 20);
 }
 
 // https://www.geeksforgeeks.org/bubble-sort/
@@ -55,10 +55,9 @@ function bubbleSort(arr, n) {
     let steps = [];
     var i, j, temp;
     for (i = 0; i < n - 1; i++) {
-        const a = [...arr]
-        steps.push(a)
         for (j = 0; j < n - i - 1; j++) {
-            
+            const a = [...arr]
+            steps.push(a)
             if (arr[j] > arr[j + 1]) {
                 // swap arr[j] and arr[j+1]
                 temp = arr[j];
