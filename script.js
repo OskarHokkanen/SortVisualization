@@ -46,7 +46,7 @@ function startBubbleSort() {
         render(l);
         i++;
         if (i === steps.length) clearInterval(interval);
-    }, 20);
+    }, 40);
 }
 
 // https://www.geeksforgeeks.org/bubble-sort/
@@ -67,6 +67,47 @@ function bubbleSort(arr, n) {
         }
     }
     return steps;
+}
+
+function startInsertionSort() {
+    // Fill list
+    let list = fillList(32);
+    // List is randomized after this
+    list = shuffleList(list);
+    render(list)
+
+    const steps = insertionSort(list, list.length);
+    
+    var i = 0;
+    var interval = setInterval(function() {
+        let l = steps[i];
+        render(l);
+        i++;
+        if (i === steps.length) clearInterval(interval);
+    }, 40);
+}
+
+function insertionSort(arr){
+    let steps = [];
+    //Start from the second element.
+    for(let i = 1; i < arr.length;i++){
+
+        //Go through the elements behind it.
+        for(let j = i - 1; j > -1; j--){
+            
+            //value comparison using ascending order.
+            if(arr[j + 1] < arr[j]){
+
+                //swap
+                [arr[j+1],arr[j]] = [arr[j],arr[j + 1]];
+                const a = [...arr]
+                steps.push(a)
+                render(arr)
+            }
+        }
+    };
+
+  return steps;
 }
 
 function render(list) {
