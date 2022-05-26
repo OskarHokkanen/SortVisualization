@@ -115,7 +115,7 @@ function render(list) {
         var ctx = canvas.getContext('2d');
         ctx.clearRect(0, 0, canvas.width, canvas.height);
             for (let i = 0; i < list.length; i++) {
-                ctx.fillStyle = 'rgb(200, 0, 0)';
+                ctx.fillStyle = 'rgb(99, 179, 237)';
                 ctx.fillRect(10 + (i * 15), canvas.height - (list[i] * 10), 10, list[i] * 10);
         }
 }
