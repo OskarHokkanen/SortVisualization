@@ -1,25 +1,28 @@
 function init() {
-    // Fill list
-    let list = fillList(200);
-    // List is randomized after this
-    list = shuffleList(list);
+    let list = fillAndShuffleList(50);
     render(list)
+    // ON init - Show information about the page in the information box
     
 }
+
 window.onload = init;
 
+// Creates and returns a list of given list size.
+// The list is filled with integers 1 - listSize.
 function fillList(listSize) {
     let list = [];
 
     if (typeof listSize != "number") {
         return list;
     }
+
     for (let i = 1; i < listSize +1; i++) {
         list.push(i);
     }
     return list;
 }
 
+// Randomizes a list and returns randomized list.
 function shuffleList(list) {
     let temp = [];
     while (list.length > 0) {
@@ -28,14 +31,23 @@ function shuffleList(list) {
         temp.push(Number(a))
     }
     return temp;
-
 }
 
+// Creates and randomizes a list of given listSize.
+function fillAndShuffleList(listSize) {
+    let list = fillList(listSize);
+    list = shuffleList(list);
+    return list;
+}
+
+// Activates when user presses corresponding button. 
+// Creates a list of numbers and starts the sort.
+// After the steps of the sort has been created,
+// send steps to render in interval.
 function startBubbleSort() {
     // Fill list
-    let list = fillList(350);
-    // List is randomized after this
-    list = shuffleList(list);
+    let list = fillAndShuffleList(50);
+
     render(list)
 
     const steps = bubbleSort(list, list.length);
@@ -68,11 +80,14 @@ function bubbleSort(arr, n) {
     return steps;
 }
 
+// Activates when user presses corresponding button. 
+// Creates a list of numbers and starts the sort.
+// After the steps of the sort has been created,
+// send steps to render in interval.
 function startInsertionSort() {
     // Fill list
-    let list = fillList(200);
-    // List is randomized after this
-    list = shuffleList(list);
+    let list = fillAndShuffleList(50);
+
     render(list)
 
     const steps = insertionSort(list, list.length);
@@ -120,7 +135,17 @@ function render(list) {
     var ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (let i = 0; i < list.length; i++) {
-        ctx.fillStyle = 'rgb(99, 179, 237)';
+        ctx.fillStyle = getSetting('barColor');
         ctx.fillRect(i * barWidth, canvas.height - list[i], barWidth, list[i] * barHeightMultip);
     }
+}
+
+// Function to get general settings
+// TODO: Check if i can do this another way
+function getSetting(setting) {
+    if (setting === "barColor") {
+        return 'rgb(99, 179, 237)';
+    }
+    
+    
 }
