@@ -1,0 +1,8 @@
+{
+    "name": "Bubble Sort",
+    "worstCaseTimeComplexity": "Big O (n^2)",
+    "averageTimeComplexity": "Big theta (n^2)",
+    "bestCaseTimeComplexity": "Big omega (n)",
+    "spaceComplexity": "Big O (1)"
+    
+}
