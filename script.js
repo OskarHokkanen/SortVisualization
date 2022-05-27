@@ -60,7 +60,7 @@ function startBubbleSort() {
     render(list)
 
     const steps = bubbleSort(list, list.length);
-    
+    getInformation('bubbleSort');
     var i = 0;
     var interval = setInterval(function() {
         let l = steps[i];
@@ -106,7 +106,7 @@ function startInsertionSort() {
     render(list)
 
     const steps = insertionSort(list, list.length);
-    
+    getInformation('insertionSort')
     var i = 0;
     var interval = setInterval(function() {
         let l = steps[i];
@@ -176,4 +176,48 @@ function getSetting(setting) {
         return 50;
     }
     
+}
+
+function getInformation(sortingMethod) {
+    fetch('sortMethodInformation/' + sortingMethod + '.json')
+    .then(response => response.json())
+    .then(json => {
+
+        let infoBox = document.getElementById('canvas-information');
+        
+        while (infoBox.childElementCount > 0) {
+            infoBox.removeChild(infoBox.firstChild)
+        }
+
+        let infoElem = document.createElement('h1');
+        let info = document.createTextNode("Information");
+        infoElem.appendChild(info);
+
+        let nameElem = document.createElement('h2');
+        let name = document.createTextNode(json.name);
+        nameElem.appendChild(name);
+
+        let wCTCElem = document.createElement('p');
+        let wCTC = document.createTextNode("Worst-case time complexity: " + json.worstCaseTimeComplexity)
+        wCTCElem.appendChild(wCTC);
+
+        let aTCElem = document.createElement('p');
+        let aTC = document.createTextNode("Average time complexity: " + json.averageTimeComplexity)
+        aTCElem.appendChild(aTC);
+
+        let bCTCElem = document.createElement('p');
+        let bCTC = document.createTextNode("Best-case time complexity: " + json.bestCaseTimeComplexity)
+        bCTCElem.appendChild(bCTC);
+
+        let sCElem = document.createElement('p');
+        let sC = document.createTextNode("Best-case time complexity: " + json.bestCaseTimeComplexity)
+        sCElem.appendChild(sC);
+
+        infoBox.appendChild(infoElem)
+        infoBox.appendChild(nameElem)
+        infoBox.appendChild(wCTCElem)
+        infoBox.appendChild(aTCElem)
+        infoBox.appendChild(bCTCElem)
+        infoBox.appendChild(sCElem)
+    });
 }
