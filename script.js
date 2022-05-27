@@ -1,6 +1,6 @@
 function init() {
     // Fill list
-    let list = fillList(32);
+    let list = fillList(200);
     // List is randomized after this
     list = shuffleList(list);
     render(list)
@@ -33,7 +33,7 @@ function shuffleList(list) {
 
 function startBubbleSort() {
     // Fill list
-    let list = fillList(32);
+    let list = fillList(350);
     // List is randomized after this
     list = shuffleList(list);
     render(list)
@@ -46,12 +46,11 @@ function startBubbleSort() {
         render(l);
         i++;
         if (i === steps.length) clearInterval(interval);
-    }, 40);
+    }, 1);
 }
 
 // https://www.geeksforgeeks.org/bubble-sort/
 function bubbleSort(arr, n) {
-    console.log(arr)
     let steps = [];
     var i, j, temp;
     for (i = 0; i < n - 1; i++) {
@@ -71,7 +70,7 @@ function bubbleSort(arr, n) {
 
 function startInsertionSort() {
     // Fill list
-    let list = fillList(32);
+    let list = fillList(200);
     // List is randomized after this
     list = shuffleList(list);
     render(list)
@@ -111,11 +110,17 @@ function insertionSort(arr){
 }
 
 function render(list) {
-        var canvas = document.getElementById('canvas');
-        var ctx = canvas.getContext('2d');
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < list.length; i++) {
-                ctx.fillStyle = 'rgb(99, 179, 237)';
-                ctx.fillRect(10 + (i * 15), canvas.height - (list[i] * 10), 10, list[i] * 10);
-        }
+    // Get reference to canvas
+    var canvas = document.getElementById('canvas');
+    // Width of each bar
+    let barWidth = canvas.width / list.length;
+    // Multiplier to normalize the height of the bars
+    let barHeightMultip = canvas.height / list.length;
+    // Get context '2d'
+    var ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let i = 0; i < list.length; i++) {
+        ctx.fillStyle = 'rgb(99, 179, 237)';
+        ctx.fillRect(i * barWidth, canvas.height - list[i], barWidth, list[i] * barHeightMultip);
+    }
 }
