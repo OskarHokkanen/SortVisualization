@@ -1,25 +1,28 @@
 function init() {
-    // Fill list
-    let list = fillList(32);
-    // List is randomized after this
-    list = shuffleList(list);
+    let list = fillAndShuffleList(50);
     render(list)
+    // ON init - Show information about the page in the information box
     
 }
+
 window.onload = init;
 
+// Creates and returns a list of given list size.
+// The list is filled with integers 1 - listSize.
 function fillList(listSize) {
     let list = [];
 
     if (typeof listSize != "number") {
         return list;
     }
+
     for (let i = 1; i < listSize +1; i++) {
         list.push(i);
     }
     return list;
 }
 
+// Randomizes a list and returns randomized list.
 function shuffleList(list) {
     let temp = [];
     while (list.length > 0) {
@@ -28,14 +31,23 @@ function shuffleList(list) {
         temp.push(Number(a))
     }
     return temp;
-
 }
 
+// Creates and randomizes a list of given listSize.
+function fillAndShuffleList(listSize) {
+    let list = fillList(listSize);
+    list = shuffleList(list);
+    return list;
+}
+
+// Activates when user presses corresponding button. 
+// Creates a list of numbers and starts the sort.
+// After the steps of the sort has been created,
+// send steps to render in interval.
 function startBubbleSort() {
     // Fill list
-    let list = fillList(32);
-    // List is randomized after this
-    list = shuffleList(list);
+    let list = fillAndShuffleList(50);
+
     render(list)
 
     const steps = bubbleSort(list, list.length);
@@ -46,12 +58,11 @@ function startBubbleSort() {
         render(l);
         i++;
         if (i === steps.length) clearInterval(interval);
-    }, 40);
+    }, getSetting('displaySpeed'));
 }
 
 // https://www.geeksforgeeks.org/bubble-sort/
 function bubbleSort(arr, n) {
-    console.log(arr)
     let steps = [];
     var i, j, temp;
     for (i = 0; i < n - 1; i++) {
@@ -69,11 +80,14 @@ function bubbleSort(arr, n) {
     return steps;
 }
 
+// Activates when user presses corresponding button. 
+// Creates a list of numbers and starts the sort.
+// After the steps of the sort has been created,
+// send steps to render in interval.
 function startInsertionSort() {
     // Fill list
-    let list = fillList(32);
-    // List is randomized after this
-    list = shuffleList(list);
+    let list = fillAndShuffleList(50);
+
     render(list)
 
     const steps = insertionSort(list, list.length);
@@ -84,7 +98,7 @@ function startInsertionSort() {
         render(l);
         i++;
         if (i === steps.length) clearInterval(interval);
-    }, 40);
+    }, getSetting('displaySpeed'));
 }
 
 function insertionSort(arr){
@@ -111,11 +125,40 @@ function insertionSort(arr){
 }
 
 function render(list) {
-        var canvas = document.getElementById('canvas');
-        var ctx = canvas.getContext('2d');
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < list.length; i++) {
-                ctx.fillStyle = 'rgb(99, 179, 237)';
-                ctx.fillRect(10 + (i * 15), canvas.height - (list[i] * 10), 10, list[i] * 10);
+    // Get reference to canvas
+    var canvas = document.getElementById('canvas');
+    // Width of each bar
+    let barWidth = canvas.width / list.length;
+    // Multiplier to normalize the height of the bars
+    let barHeightMultip = canvas.height / list.length;
+    // Get context '2d'
+    var ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let i = 0; i < list.length; i++) {
+        ctx.fillStyle = getSetting('barColor');
+        ctx.fillRect(i * barWidth, canvas.height - list[i], barWidth, list[i] * barHeightMultip);
+    }
+}
+
+// Function to get general settings
+// TODO: Check if i can do this another way
+function getSetting(setting) {
+    if (setting === "barColor") {
+        return 'rgb(99, 179, 237)';
+    }
+    if (setting === "displaySpeed") {
+        let ds = document.getElementById('displaySpeed').value;
+        if (ds <= 100 && ds >= 2) {
+            return ds;
         }
+        return 10;
+    }
+    if (setting === "amountOfBars") {
+        let aob = document.getElementById('amountOfBars').value;
+        if (aob <= 300 && ds >= 10) {
+            return aob;
+        }
+        return 50;
+    }
+    
 }
