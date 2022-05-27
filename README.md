@@ -13,9 +13,7 @@ Attempt to create a sort visualization
 
 
 ## Fix code list
-- Break out code in to functions (In progress)
 - General size of list
-- fillAndShuffleList function (Shuffle and fill combined)
 - Fix size of bars, check different sizes (Maybe add max width)
 - Break out sorting methods in different files?
 - Start new sort will stop the current if any

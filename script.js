@@ -1,8 +1,12 @@
 function init() {
-    let list = fillAndShuffleList(50);
+    let list = fillAndShuffleList(getSetting('amountOfBars'));
     render(list)
+
+    document.getElementById('amountOfBars').addEventListener('change', function() {
+        let list = fillAndShuffleList(getSetting('amountOfBars'));
+        render(list);
+    })
     // ON init - Show information about the page in the information box
-    
 }
 
 window.onload = init;
@@ -46,7 +50,12 @@ function fillAndShuffleList(listSize) {
 // send steps to render in interval.
 function startBubbleSort() {
     // Fill list
-    let list = fillAndShuffleList(50);
+    document.getElementById('canvas').classList.replace('playing', 'paused');
+    setTimeout(() => {
+        document.getElementById('canvas').classList.replace('paused', 'playing');
+    }, getSetting('displaySpeed'));
+    let n = getSetting('amountOfBars');
+    let list = fillAndShuffleList(n);
 
     render(list)
 
@@ -57,7 +66,7 @@ function startBubbleSort() {
         let l = steps[i];
         render(l);
         i++;
-        if (i === steps.length) clearInterval(interval);
+        if (i === steps.length || document.getElementById('canvas').classList.contains('paused')) clearInterval(interval);
     }, getSetting('displaySpeed'));
 }
 
@@ -86,7 +95,13 @@ function bubbleSort(arr, n) {
 // send steps to render in interval.
 function startInsertionSort() {
     // Fill list
-    let list = fillAndShuffleList(50);
+    document.getElementById('canvas').classList.replace('playing', 'paused');
+    setTimeout(() => {
+        console.log('here')
+        document.getElementById('canvas').classList.replace('paused', 'playing');    
+    }, getSetting('displaySpeed'));
+    let n = getSetting('amountOfBars');
+    let list = fillAndShuffleList(n);
 
     render(list)
 
@@ -97,7 +112,7 @@ function startInsertionSort() {
         let l = steps[i];
         render(l);
         i++;
-        if (i === steps.length) clearInterval(interval);
+        if (i === steps.length || document.getElementById('canvas').classList.contains('paused')) clearInterval(interval);
     }, getSetting('displaySpeed'));
 }
 
@@ -148,15 +163,15 @@ function getSetting(setting) {
     }
     if (setting === "displaySpeed") {
         let ds = document.getElementById('displaySpeed').value;
-        if (ds <= 100 && ds >= 2) {
+        if (ds <= 100 && ds >= 5) {
             return ds;
         }
-        return 10;
+        return 5;
     }
     if (setting === "amountOfBars") {
         let aob = document.getElementById('amountOfBars').value;
-        if (aob <= 300 && ds >= 10) {
-            return aob;
+        if (aob <= 300 && aob >= 10) {
+            return parseInt(aob);
         }
         return 50;
     }
