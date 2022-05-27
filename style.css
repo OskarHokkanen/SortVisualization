@@ -12,7 +12,7 @@ body {
 
 #canvas-wrapper {
     width: 100%;
-    height: auto;
+    height: 350px;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -25,11 +25,19 @@ canvas {
 
 #canvas-information {
     width: 30%;
+    height: inherit;
+    background-color: white;
+    border: solid black 1px;
+    text-align: center;
+    overflow-y: scroll;
+}
+
+#canvas-settings {
+    width: 15%;
     background-color: white;
     border: solid black 1px;
     text-align: center;
 }
-
 ul {
     width: 45%;
     display: flex;

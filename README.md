@@ -9,6 +9,7 @@ Attempt to create a sort visualization
     * Speed of alogrithm
     * Explanation - with links to more detailed explanation
     * MaTh
+- Tanslations
 
 
 ## Fix code list
@@ -17,3 +18,4 @@ Attempt to create a sort visualization
 - fillAndShuffleList function (Shuffle and fill combined)
 - Fix size of bars, check different sizes (Maybe add max width)
 - Break out sorting methods in different files?
+- Start new sort will stop the current if any

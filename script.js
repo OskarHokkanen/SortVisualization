@@ -58,7 +58,7 @@ function startBubbleSort() {
         render(l);
         i++;
         if (i === steps.length) clearInterval(interval);
-    }, 1);
+    }, getSetting('displaySpeed'));
 }
 
 // https://www.geeksforgeeks.org/bubble-sort/
@@ -98,7 +98,7 @@ function startInsertionSort() {
         render(l);
         i++;
         if (i === steps.length) clearInterval(interval);
-    }, 40);
+    }, getSetting('displaySpeed'));
 }
 
 function insertionSort(arr){
@@ -146,6 +146,19 @@ function getSetting(setting) {
     if (setting === "barColor") {
         return 'rgb(99, 179, 237)';
     }
-    
+    if (setting === "displaySpeed") {
+        let ds = document.getElementById('displaySpeed').value;
+        if (ds <= 100 && ds >= 2) {
+            return ds;
+        }
+        return 10;
+    }
+    if (setting === "amountOfBars") {
+        let aob = document.getElementById('amountOfBars').value;
+        if (aob <= 300 && ds >= 10) {
+            return aob;
+        }
+        return 50;
+    }
     
 }
